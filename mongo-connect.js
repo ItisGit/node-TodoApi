@@ -1,7 +1,7 @@
 //const mongoClient = require('mongodb').MongoClient;
 const {MongoClient, ObjectID} = require('mongodb');
 
-var  obj = new ObjectID();
+var obj = new ObjectID();
 console.log(obj);
 
 //emac6 - destruct object example
@@ -27,7 +27,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	});
 */
 
-/*
+	/*
 	db.collection('User').insertOne({name: 'name surname', age: 30, location: 'Philadelphia'},
 	 (err, res) => {
 		 if (err) {
@@ -38,7 +38,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	 });
 	 */
 
-/*
+	/*
 	 db.collection('Todos').find().toArray().then((docs) => {
 		 console.log('Todos');
 		 console.log(JSON.stringify(docs, undefined, 2));
@@ -68,12 +68,66 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	 });
 	 */
 
+	/*
 	 db.collection('Todos').find().count().then((count) => {
 		 console.log('Todos total:', count);
 		 }, (err) =>{
 			 if (err)
 				return console.log('error fetching', err);
 	 });
+	 */
+
+	 //deleteMany
+	 /*
+	 db.collection('Todos').deleteMany({text: 'schedule meeting'}).then((result) => {
+	 		 console.log(result);
+	 		 }, (err) =>{
+	 			 if (err)
+	 				return console.log('error deleting', err);
+	 });
+	 */
+
+	 //deleteOne  -- delete the 1st record to match the criteria
+	 /*
+	 db.collection('Todos').deleteOne({text: 'schedule meeting'}).then((result) => {
+	 	 		 console.log(result);
+	 	 		 }, (err) =>{
+	 	 			 if (err)
+	 	 				return console.log('error deleting', err);
+	 });
+	 */
+
+	 //findOneAndDelete -- delete the 1st record to match the criteria, but also returns the deleted record
+	 /*
+	 db.collection('Todos').findOneAndDelete({completed: false}).then((result) => {
+	 	 	 		 console.log(result);
+	 	 	 		 }, (err) =>{
+	 	 	 			 if (err)
+	 	 	 				return console.log('error deleting', err);
+	 });
+	 */
+
+	 //update
+	 /*
+	 db.collection('Todos')
+	    .findOneAndUpdate({_id: new ObjectID('5a2ad594c14b0e1f8432f3fe')}, {$set: {completed: true}}, {returnOriginal: false})
+	 	.then((result) => {console.log(result);
+	 	 	 	 		  },
+	 	 	  (err) =>{if (err)
+	 	 	  			return console.log('error deleting', err);
+	 });
+	 */
+
+	 //update increment
+	 db.collection('User')
+	 	    .findOneAndUpdate({_id: new ObjectID('5a2acaa3c0c9e30ea88b8366')}, {$set: {name: 'changed name'}, $inc: {age: 1}}, {returnOriginal: false})
+	 	 	.then((result) => {console.log(result);
+	 	 	 	 	 		  },
+	 	 	 	  (err) =>{if (err)
+	 	 	 	  			return console.log('error deleting', err);
+	 });
+
+
 
 	 db.close();
 });
