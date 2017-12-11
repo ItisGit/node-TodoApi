@@ -2,6 +2,7 @@
 # Files
 #################
 *.class
+package-lock.json
 #################
 # Directories
 #################
